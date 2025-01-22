@@ -25,6 +25,8 @@ MODEL_PATH = "./decision_tree.joblib"
 CONNECTION_STRING = ""
 CONTAINER_NAME = ""
 
+look_up = {0: 'bolt_case', 1: 'normal_case', 2: 'off_state', 3: 'on_state', 4: 'paper_case', 5: 'solid_case'}
+
 import librosa
 import numpy as np
 from scipy.stats import skew, kurtosis
@@ -125,6 +127,7 @@ def save_to_json(data, filename):
 if __name__ == "__main__":
     loaded_clf = joblib.load(MODEL_PATH)
     json_filename = f"Device1_prediction_data.json"
+    data = []
 
     while True:
         timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
@@ -144,17 +147,8 @@ if __name__ == "__main__":
         # Prepare data to append to JSON
         result = {
             "features": features,
-            "predictions": predictions  # Already serializable
+            "predictions": look_up[predictions[0]]  # Already serializable
         }
-
-        # Append the predictions to the JSON file
-        try:
-            # If the JSON file exists, load existing data
-            with open(json_filename, 'r') as json_file:
-                data = json.load(json_file)
-        except FileNotFoundError:
-            # If the file doesn't exist, initialize an empty list
-            data = []
 
         # Append the new result to the data
         data.append(result)
