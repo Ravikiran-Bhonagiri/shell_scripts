@@ -150,12 +150,6 @@ if __name__ == "__main__":
             "predictions": look_up[predictions[0]]  # Already serializable
         }
 
-        # Append the new result to the data
-        data.append(result)
-
-        # Write the updated data back to the JSON file
-        with open(json_filename, 'w') as json_file:
-            json.dump(data, json_file, indent=4)
-
-        print(f"Predictions saved to {json_filename}")
+        print(result)
+        
         time.sleep(5)  # Wait 5 seconds before the next recording
