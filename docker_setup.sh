@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Exit on errors
 set -e
 
