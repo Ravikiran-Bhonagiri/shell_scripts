@@ -39,6 +39,7 @@ def extract_audio_features(audio_file):
     features["spectral_bandwidth_mean"] = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
     features["rms_mean"] = np.mean(librosa.feature.rms(y=y))
 
+    # MFCC features
     mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
     for i in range(13):
         features[f"mfcc_{i+1}_mean"] = np.mean(mfccs[i])
