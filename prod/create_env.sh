@@ -68,6 +68,18 @@ else
 fi
 echo "------------------------------------------------------------"
 
+# Check if the virtual environment directory exists
+if [ -d "$VENV_DIR" ]; then
+    echo "------------------------------------------------------------"
+    echo "The virtual environment directory '$VENV_DIR' already exists."
+    echo "Deleting the directory..."
+    echo "------------------------------------------------------------"
+    rm -rf "$VENV_DIR"
+    echo "------------------------------------------------------------"
+    echo "Directory '$VENV_DIR' deleted successfully."
+    echo "------------------------------------------------------------"
+fi
+
 # Create the virtual environment
 echo "------------------------------------------------------------"
 echo "Creating virtual environment in the directory: $VENV_DIR..."
