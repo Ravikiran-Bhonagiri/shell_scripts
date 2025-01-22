@@ -3,8 +3,8 @@
 # until they complete execution. This is useful for Docker containers or automated tasks.
 
 # Define the paths to the Python scripts
-AUDIO_DATA_COLLECTOR="/app/audio_data_collector.py"
-IOT_RELAY_CONTROL="/app/iot_relay_control.py"
+AUDIO_DATA_COLLECTOR="audio_data_collector.py"
+IOT_RELAY_CONTROL="iot_relay_control.py"
 
 # Run the audio data collector script in the background
 # This script is responsible for collecting audio data (e.g., sound signals, recordings).
