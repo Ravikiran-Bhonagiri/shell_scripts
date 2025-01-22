@@ -2,7 +2,7 @@
 
 # Define the image name and tag
 IMAGE_NAME="bhonagiri/sound_anomaly"
-IMAGE_TAG="latest"
+IMAGE_TAG="multistage"
 
 # Pull the image from Docker Hub
 echo "Pulling image $IMAGE_NAME:$IMAGE_TAG from Docker Hub..."
