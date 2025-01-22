@@ -40,22 +40,6 @@ else
     fi
 fi
 
-# Install PyAudio using pip
-echo "------------------------------------------------------------"
-echo "Installing PyAudio with pip..."
-echo "------------------------------------------------------------"
-pip install pyaudio
-if [ $? -eq 0 ]; then
-    echo "------------------------------------------------------------"
-    echo "PyAudio installed successfully."
-    echo "------------------------------------------------------------"
-else
-    echo "------------------------------------------------------------"
-    echo "Failed to install PyAudio. Please check for errors."
-    echo "------------------------------------------------------------"
-    exit 1
-fi
-
 echo "------------------------------------------------------------"
 echo "Dependencies for PyAudio installed successfully."
 echo "------------------------------------------------------------"
