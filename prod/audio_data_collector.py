@@ -38,12 +38,39 @@ def extract_audio_features(audio_file):
     features["spectral_bandwidth_mean"] = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
     features["rms_mean"] = np.mean(librosa.feature.rms(y=y))
 
+    # MFCC features
     mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
     for i in range(13):
         features[f"mfcc_{i+1}_mean"] = np.mean(mfccs[i])
 
     features["chroma_mean"] = np.mean(librosa.feature.chroma_stft(y=y, sr=sr))
+    features["spectral_contrast_mean"] = np.mean(librosa.feature.spectral_contrast(y=y, sr=sr))
+    features["tonnetz_mean"] = np.mean(librosa.feature.tonnetz(y=y, sr=sr))
+    features["onset_strength_mean"] = np.mean(librosa.onset.onset_strength(y=y, sr=sr))
+    # Harmonic and percussive RMS
+    
+    harmonic, percussive = librosa.effects.hpss(y)
+    features["harmonic_rms"] = np.mean(librosa.feature.rms(y=harmonic))
+    features["percussive_rms"] = np.mean(librosa.feature.rms(y=percussive))
+    
+    # Pitch and tempo
+    pitches, _ = librosa.piptrack(y=y, sr=sr)
+    features["mean_pitch"] = np.mean(pitches[pitches > 0])
+    features["tempo"] = librosa.beat.tempo(y=y, sr=sr)[0]
+    # Chroma CQT and spectral flatness
+    features["chroma_cqt_mean"] = np.mean(librosa.feature.chroma_cqt(y=y, sr=sr))
     features["spectral_flatness_mean"] = np.mean(librosa.feature.spectral_flatness(y=y))
+    # Spectral entropy
+    spectral_energy = y ** 2
+    spectral_probs = spectral_energy / np.sum(spectral_energy + 1e-7)
+    features["spectral_entropy"] = -np.sum(spectral_probs * np.log(spectral_probs + 1e-7))
+    # Crest factor
+    features["crest_factor"] = np.max(np.abs(y)) / np.mean(np.abs(y))
+    # Attack and decay time (based on onset envelope)
+    envelope = librosa.onset.onset_strength(y=y, sr=sr)
+    features["attack_time"] = np.argmax(envelope) / sr
+    features["decay_time"] = (len(envelope) - np.argmax(envelope[::-1])) / sr
+    # Skewness and kurtosis
     features["skewness"] = skew(y)
     features["kurtosis"] = kurtosis(y)
 
